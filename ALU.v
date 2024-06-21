@@ -1,0 +1,28 @@
+module ALU(
+    input aluValA,
+    input aluValB,
+    input CONTROL_OPERATION,            // 0 = ADD, 1 = NOR, 2 = EQUAL?
+
+    output reg aluResult,
+    output reg CONTROL_JUMP,
+    output reg jump_destination
+);
+
+always @ (aluValA, aluValB, CONTROL_OPERATION) begin
+	case(CONTROL_OPERATION):
+        2'b00: aluResult <= aluValA + aluValB;
+        2'b01: aluResult <= ~(aluValA | aluValA); 
+    endcase
+
+    if (CONTROL_OPERATION == 2'b10) begin
+        if (aluValA == aluValB) begin   // if equal, jump
+            CONTROL_JUMP <= 1;
+            pcPrev + 1 + offsetExtended
+        end
+        else begin
+            CONTROL_JUMP <= 0;
+        end
+    end
+end
+
+endmodule

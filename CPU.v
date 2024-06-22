@@ -108,6 +108,4 @@ module CPU();
         .CONTROL_JALR(CONTROL_JALR)
     );
 
-    // initial value for PCinput
-
 endmodule

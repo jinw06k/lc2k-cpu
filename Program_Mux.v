@@ -9,6 +9,10 @@ module PC_Mux(
     output reg pcOutput
 );
 
+    initial begin
+        pcOutput = 0;
+    end
+
     always @(posedge clk, CONTROL_BEQ, CONTROL_JALR) begin
         if (CONTROL_BEQ == 1) begin
             pcOutput <= pcPlusOne + offsetExtended;

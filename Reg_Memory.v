@@ -21,7 +21,7 @@ module Reg_Memory(
 
   always @(read_regA, read_regB, write_reg, write_value, CONTROL_ENABLE_REG_WRITE) begin
       if (CONTROL_ENABLE_REG_WRITE == 1) begin
-        Regiter[write_reg] = write_value;
+        Register[write_reg] = write_value;
       end
       
       aluValA = Register[read_regA];

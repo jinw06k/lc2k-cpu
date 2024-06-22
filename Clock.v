@@ -5,7 +5,7 @@ module Clock (
 
     initial begin
         clk = 1'b0;
-        #50 $finish;
+        #1;
     end
 
     always @(CONTROL_HALT == 0) begin 

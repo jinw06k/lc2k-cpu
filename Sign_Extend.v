@@ -4,7 +4,7 @@ module Sign_Extend(
 );
 
     always @(offset) begin
-        offsetExtended[31:0] <= { {16{extend[15]}}, extend[15:0] };
+        offsetExtended[31:0] <= { {16{offset[15]}}, offset[15:0] };
     end
 
 endmodule

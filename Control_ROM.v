@@ -2,15 +2,15 @@ module Control_ROM(
     input clk,
     input [2:0] opcode,
 
-    output CONTROL_WRITE_REG,               // 1 = dest reg     0 = regB
-    output CONTROL_WRITE_DATA,              // 1 = aluResult    0 = memResult
-    output CONTROL_ENABLE_REG_WRITE,        // 1 = write register
-    output CONTROL_ALUvalB,                 // 1 = regBvalue    0 = offsetExtended
-    output CONTROL_OPERATION,               // 1 = nor          0 = add
-    output CONTROL_MEM_ACCESS,              // 1 = memory accessed
-    output CONTROL_ENABLE_MEM_WRITE,        // 1 = write mem    0 = read mem
-    output CONTROL_HALT,
-    output CONTROL_JALR,
+    output reg CONTROL_WRITE_REG,               // 1 = dest reg     0 = regB
+    output reg CONTROL_WRITE_DATA,              // 1 = aluResult    0 = memResult
+    output reg CONTROL_ENABLE_REG_WRITE,        // 1 = write register
+    output reg CONTROL_ALUvalB,                 // 1 = regBvalue    0 = offsetExtended
+    output reg CONTROL_OPERATION,               // 1 = nor          0 = add
+    output reg CONTROL_MEM_ACCESS,              // 1 = memory accessed
+    output reg CONTROL_ENABLE_MEM_WRITE,        // 1 = write mem    0 = read mem
+    output reg CONTROL_HALT,
+    output reg CONTROL_JALR
 );
 
     parameter OP_ADD = 3'b000;
@@ -21,6 +21,10 @@ module Control_ROM(
     parameter OP_JALR = 3'b101;
     parameter OP_HALT = 3'b110;
     parameter OP_NOOP = 3'b111;
+
+    initial begin
+        CONTROL_HALT = 0;
+    end
 
     always @(posedge clk) begin
         case(opcode)
@@ -112,5 +116,6 @@ module Control_ROM(
                 CONTROL_MEM_ACCESS = 0;         // 1 = memory accessed
                 CONTROL_ENABLE_MEM_WRITE = 0;   // 1 = write mem    0 = read mem
             end
+        endcase
     end
 endmodule

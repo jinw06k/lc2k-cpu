@@ -1,13 +1,13 @@
-module PC_Mux(
+module Program_Mux(
     input clk,
     input pcPlusOne,
     input CONTROL_BEQ,
-    input offsetExtended,
+    input [31:0] offsetExtended,
     input CONTROL_JALR,
     input aluValA,
 
     output reg pcOutput
-);
+); 
 
     initial begin
         pcOutput = 0;

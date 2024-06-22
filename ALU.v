@@ -4,11 +4,11 @@ module ALU(
     input CONTROL_OPERATION,            // 0 = ADD, 1 = NOR, 2 = EQUAL?
 
     output reg aluResult,
-    output reg CONTROL_BEQ,
+    output reg CONTROL_BEQ
 );
 
     always @ (aluValA, aluValB, CONTROL_OPERATION) begin
-        case(CONTROL_OPERATION):
+        case(CONTROL_OPERATION)
             2'b00: aluResult <= aluValA + aluValB;
             2'b01: aluResult <= ~(aluValA | aluValA); 
         endcase

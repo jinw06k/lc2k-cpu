@@ -1,7 +1,9 @@
 module CPU();
 
-    wire clk, pcInput, pcCurrent, pcPlusOne, offsetExtended;
-    wire write_reg, write_value, aluValA, regBvalue, aluValB, aluResult;
+    wire clk, pcInput, pcCurrent, pcPlusOne;
+    wire [31:0] offsetExtended;
+    wire write_value, aluValA, regBvalue, aluValB, aluResult;
+    wire [2:0] write_reg;
     wire memResult;
 
     wire [31 : 0] instruction;
@@ -23,7 +25,7 @@ module CPU();
         .pcPlusOne(pcPlusOne)
     );
 
-    Program_Mux pMux(
+    Program_Mux pM(
         .clk(clk),
         .pcPlusOne(pcPlusOne),
         .CONTROL_BEQ(CONTROL_BEQ),
@@ -107,5 +109,14 @@ module CPU();
         .CONTROL_HALT(CONTROL_HALT),
         .CONTROL_JALR(CONTROL_JALR)
     );
+
+    initial begin
+        $dumpfile("test.vcd");
+        $dumpvars(0,CPU);
+    end
+
+    initial
+     $monitor("At time %t, clock = %0d value = %h (%0d)",
+              $time, clk, instruction, instruction);
 
 endmodule

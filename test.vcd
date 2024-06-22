@@ -1,0 +1,215 @@
+$date
+	Sat Jun 22 11:39:11 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module CPU $end
+$var wire 1 ! pcInput $end
+$var wire 1 " write_value $end
+$var wire 3 # write_reg [2:0] $end
+$var wire 1 $ regBvalue $end
+$var wire 1 % pcPlusOne $end
+$var wire 1 & pcOutput $end
+$var wire 1 ' pcCurrent $end
+$var wire 32 ( offsetExtended [31:0] $end
+$var wire 1 ) memResult $end
+$var wire 32 * instruction [31:0] $end
+$var wire 1 + clk $end
+$var wire 1 , aluValB $end
+$var wire 1 - aluValA $end
+$var wire 1 . aluResult $end
+$var wire 1 / CONTROL_WRITE_REG $end
+$var wire 1 0 CONTROL_WRITE_DATA $end
+$var wire 1 1 CONTROL_OPERATION $end
+$var wire 1 2 CONTROL_MEM_ACCESS $end
+$var wire 1 3 CONTROL_JALR $end
+$var wire 1 4 CONTROL_HALT $end
+$var wire 1 5 CONTROL_ENABLE_REG_WRITE $end
+$var wire 1 6 CONTROL_ENABLE_MEM_WRITE $end
+$var wire 1 7 CONTROL_BEQ $end
+$var wire 1 8 CONTROL_ALUvalB $end
+$scope module PC $end
+$var wire 1 ! pcInput $end
+$var wire 1 + clk $end
+$var reg 1 ' pcCurrent $end
+$var reg 1 % pcPlusOne $end
+$upscope $end
+$scope module alu $end
+$var wire 1 , aluValB $end
+$var wire 1 - aluValA $end
+$var wire 1 1 CONTROL_OPERATION $end
+$var reg 1 7 CONTROL_BEQ $end
+$var reg 1 . aluResult $end
+$upscope $end
+$scope module cRom $end
+$var wire 3 9 opcode [2:0] $end
+$var wire 1 + clk $end
+$var parameter 3 : OP_ADD $end
+$var parameter 3 ; OP_BEQ $end
+$var parameter 3 < OP_HALT $end
+$var parameter 3 = OP_JALR $end
+$var parameter 3 > OP_LW $end
+$var parameter 3 ? OP_NOOP $end
+$var parameter 3 @ OP_NOR $end
+$var parameter 3 A OP_SW $end
+$var reg 1 8 CONTROL_ALUvalB $end
+$var reg 1 6 CONTROL_ENABLE_MEM_WRITE $end
+$var reg 1 5 CONTROL_ENABLE_REG_WRITE $end
+$var reg 1 4 CONTROL_HALT $end
+$var reg 1 3 CONTROL_JALR $end
+$var reg 1 2 CONTROL_MEM_ACCESS $end
+$var reg 1 1 CONTROL_OPERATION $end
+$var reg 1 0 CONTROL_WRITE_DATA $end
+$var reg 1 / CONTROL_WRITE_REG $end
+$upscope $end
+$scope module clock $end
+$var wire 1 4 CONTROL_HALT $end
+$var reg 1 + clk $end
+$upscope $end
+$scope module dataM $end
+$var wire 1 6 CONTROL_ENABLE_MEM_WRITE $end
+$var wire 1 2 CONTROL_MEM_ACCESS $end
+$var wire 1 . aluResult $end
+$var wire 1 $ regBvalue $end
+$var reg 1 ) memResult $end
+$var integer 32 B ii [31:0] $end
+$upscope $end
+$scope module instrM $end
+$var wire 1 ' pcCurrent $end
+$var reg 32 C instr [31:0] $end
+$upscope $end
+$scope module pM $end
+$var wire 1 7 CONTROL_BEQ $end
+$var wire 1 3 CONTROL_JALR $end
+$var wire 1 + clk $end
+$var wire 1 % pcPlusOne $end
+$var wire 32 D offsetExtended [31:0] $end
+$var wire 1 - aluValA $end
+$var reg 1 & pcOutput $end
+$upscope $end
+$scope module regM $end
+$var wire 1 5 CONTROL_ENABLE_REG_WRITE $end
+$var wire 3 E read_regA [2:0] $end
+$var wire 3 F read_regB [2:0] $end
+$var wire 1 " write_value $end
+$var wire 3 G write_reg [2:0] $end
+$var reg 1 - aluValA $end
+$var reg 1 $ regBvalue $end
+$var integer 32 H ii [31:0] $end
+$upscope $end
+$scope module sExtend $end
+$var wire 16 I offset [15:0] $end
+$var reg 32 J offsetExtended [31:0] $end
+$upscope $end
+$scope module vbMux $end
+$var wire 1 8 CONTROL_ALUvalB $end
+$var wire 1 + clk $end
+$var wire 32 K offsetExtended [31:0] $end
+$var wire 1 $ regBvalue $end
+$var reg 1 , aluValB $end
+$upscope $end
+$scope module wdMux $end
+$var wire 1 0 CONTROL_WRITE_DATA $end
+$var wire 1 . aluResult $end
+$var wire 1 + clk $end
+$var wire 1 ) memResult $end
+$var wire 1 % pcPlusOne $end
+$var reg 1 " write_value $end
+$upscope $end
+$scope module wrMux $end
+$var wire 1 / CONTROL_WRITE_REG $end
+$var wire 1 + clk $end
+$var wire 3 L destReg [2:0] $end
+$var wire 3 M regB [2:0] $end
+$var reg 3 N write_reg [2:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b11 A
+b1 @
+b111 ?
+b10 >
+b101 =
+b110 <
+b100 ;
+b0 :
+$end
+#0
+$dumpvars
+bx N
+b1 M
+b10 L
+b1010 K
+b1010 J
+b1010 I
+b1000 H
+bx G
+b1 F
+b0 E
+b1010 D
+b100000010000000000001010 C
+b1000 B
+b10 9
+x8
+x7
+x6
+x5
+04
+x3
+x2
+x1
+x0
+x/
+x.
+0-
+x,
+0+
+b100000010000000000001010 *
+x)
+b1010 (
+0'
+0&
+1%
+1$
+bx #
+x"
+z!
+$end
+#1
+bx (
+bx D
+bx J
+bx K
+x.
+x-
+bx 9
+bx F
+bx E
+bx I
+bx L
+bx M
+x$
+bx *
+bx C
+b1 #
+b1 G
+b1 N
+0,
+x&
+x%
+z'
+06
+12
+01
+08
+15
+00
+0/
+03
+1+

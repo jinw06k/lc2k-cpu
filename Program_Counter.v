@@ -6,6 +6,12 @@ module Program_Counter(
   output reg pcPlusOne
 );
 
+  initial begin
+    pcCurrent = 0;
+    pcPlusOne = 1;
+    #10 $finish;
+  end
+
   always @(posedge clk) begin
     pcCurrent = pcInput;
     pcPlusOne = pcCurrent + 1;

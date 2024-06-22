@@ -9,6 +9,8 @@ module Control_ROM(
     output CONTROL_OPERATION,               // 1 = nor          0 = add
     output CONTROL_MEM_ACCESS,              // 1 = memory accessed
     output CONTROL_ENABLE_MEM_WRITE,        // 1 = write mem    0 = read mem
+    output CONTROL_HALT,
+    output CONTROL_JALR,
 );
 
     parameter OP_ADD = 3'b000;
@@ -23,6 +25,7 @@ module Control_ROM(
     always @(posedge clk) begin
         case(opcode)
             OP_ADD: begin
+                CONTROL_HALT = 0;
                 CONTROL_JALR = 0;
                 CONTROL_WRITE_REG = 1;          // 1 = dest reg
                 CONTROL_WRITE_DATA = 1;         // 1 = aluResult
@@ -33,6 +36,7 @@ module Control_ROM(
                 CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
             end
             OP_NOR: begin
+                CONTROL_HALT = 0;
                 CONTROL_JALR = 0;
                 CONTROL_WRITE_REG = 1;          // 1 = dest reg
                 CONTROL_WRITE_DATA = 1;         // 1 = aluResult 
@@ -43,6 +47,7 @@ module Control_ROM(
                 CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
             end
             OP_LW: begin
+                CONTROL_HALT = 0;
                 CONTROL_JALR = 0;
                 CONTROL_WRITE_REG = 0;          // 0 = regB
                 CONTROL_WRITE_DATA = 0;         // 0 = memResult
@@ -53,6 +58,7 @@ module Control_ROM(
                 CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
             end
             OP_SW: begin
+                CONTROL_HALT = 0;
                 CONTROL_JALR = 0;
                 CONTROL_WRITE_REG = 0;          // 0 = regB
                 CONTROL_WRITE_DATA = 0;         // 0 = memResult
@@ -63,6 +69,7 @@ module Control_ROM(
                 CONTROL_ENABLE_MEM_WRITE = 1;   // 1 = write mem
             end
             OP_BEQ: begin
+                CONTROL_HALT = 0;
                 CONTROL_JALR = 0;
                 CONTROL_WRITE_REG = 0;          // 0 = regB
                 CONTROL_WRITE_DATA = 0;         // 0 = memResult
@@ -73,6 +80,7 @@ module Control_ROM(
                 CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
             end
             OP_JALR: begin
+                CONTROL_HALT = 0;
                 CONTROL_WRITE_REG = 0;          // 0 = regB
                 CONTROL_WRITE_DATA = 2;         // 1 = pc+1
                 CONTROL_ENABLE_REG_WRITE = 1;   // 1 = write register
@@ -83,6 +91,7 @@ module Control_ROM(
                 CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
             end
             OP_HALT: begin
+                CONTROL_HALT = 1;
                 CONTROL_JALR = 0;
                 CONTROL_WRITE_REG = 0;          // 1 = dest reg     0 = regB
                 CONTROL_WRITE_DATA = 0;         // 1 = aluResult    0 = memResult
@@ -93,6 +102,7 @@ module Control_ROM(
                 CONTROL_ENABLE_MEM_WRITE = 0;   // 1 = write mem    0 = read mem
             end
             OP_NOOP: begin
+                CONTROL_HALT = 0;
                 CONTROL_JALR = 0;
                 CONTROL_WRITE_REG = 0;          // 1 = dest reg     0 = regB
                 CONTROL_WRITE_DATA = 0;         // 1 = aluResult    0 = memResult

@@ -1,4 +1,5 @@
 module Clock (
+    input CONTROL_HALT,
     output reg clk
 );
 
@@ -7,7 +8,7 @@ module Clock (
         #50 $finish;
     end
 
-    always begin 
+    always @(CONTROL_HALT == 0) begin 
         #1 clk = ~clk;
     end
 

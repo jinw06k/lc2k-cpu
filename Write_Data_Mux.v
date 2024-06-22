@@ -1,11 +1,11 @@
 module Write_Data_Mux(
     input clk,
-    input memResult,                // writeData = 0 
-    input aluResult,                // writeData = 1
-    input pcPlusOne,                // writeData = 2
+    input [31:0] memResult,                // writeData = 0 
+    input [31:0] aluResult,                // writeData = 1
+    input [31:0] pcPlusOne,                // writeData = 2
     input CONTROL_WRITE_DATA,
 
-    output reg write_value
+    output reg [31:0] write_value
 );
 
     always @(posedge clk) begin

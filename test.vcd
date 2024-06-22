@@ -1,5 +1,5 @@
 $date
-	Sat Jun 22 12:03:47 2024
+	Sat Jun 22 14:26:44 2024
 $end
 $version
 	Icarus Verilog
@@ -8,20 +8,20 @@ $timescale
 	1s
 $end
 $scope module CPU $end
-$var wire 1 ! pcInput $end
-$var wire 1 " write_value $end
-$var wire 3 # write_reg [2:0] $end
-$var wire 1 $ regBvalue $end
-$var wire 1 % pcPlusOne $end
-$var wire 1 & pcOutput $end
-$var wire 1 ' pcCurrent $end
+$var wire 32 ! write_value [31:0] $end
+$var wire 3 " write_reg [2:0] $end
+$var wire 32 # regBvalue [31:0] $end
+$var wire 32 $ reg1val [31:0] $end
+$var wire 32 % pcPlusOne [31:0] $end
+$var wire 32 & pcInput [31:0] $end
+$var wire 32 ' pcCurrent [31:0] $end
 $var wire 32 ( offsetExtended [31:0] $end
-$var wire 1 ) memResult $end
+$var wire 32 ) memResult [31:0] $end
 $var wire 32 * instruction [31:0] $end
 $var wire 1 + clk $end
-$var wire 1 , aluValB $end
-$var wire 1 - aluValA $end
-$var wire 1 . aluResult $end
+$var wire 32 , aluValB [31:0] $end
+$var wire 32 - aluValA [31:0] $end
+$var wire 32 . aluResult [31:0] $end
 $var wire 1 / CONTROL_WRITE_REG $end
 $var wire 1 0 CONTROL_WRITE_DATA $end
 $var wire 1 1 CONTROL_OPERATION $end
@@ -32,30 +32,32 @@ $var wire 1 5 CONTROL_ENABLE_REG_WRITE $end
 $var wire 1 6 CONTROL_ENABLE_MEM_WRITE $end
 $var wire 1 7 CONTROL_BEQ $end
 $var wire 1 8 CONTROL_ALUvalB $end
+$var reg 1 9 pc_reset $end
 $scope module PC $end
-$var wire 1 ! pcInput $end
+$var wire 1 9 reset $end
+$var wire 32 : pcInput [31:0] $end
 $var wire 1 + clk $end
-$var reg 1 ' pcCurrent $end
-$var reg 1 % pcPlusOne $end
+$var reg 32 ; pcCurrent [31:0] $end
+$var reg 32 < pcPlusOne [31:0] $end
 $upscope $end
 $scope module alu $end
-$var wire 1 , aluValB $end
-$var wire 1 - aluValA $end
+$var wire 32 = aluValB [31:0] $end
+$var wire 32 > aluValA [31:0] $end
 $var wire 1 1 CONTROL_OPERATION $end
 $var reg 1 7 CONTROL_BEQ $end
-$var reg 1 . aluResult $end
+$var reg 32 ? aluResult [31:0] $end
 $upscope $end
 $scope module cRom $end
-$var wire 3 9 opcode [2:0] $end
+$var wire 3 @ opcode [2:0] $end
 $var wire 1 + clk $end
-$var parameter 3 : OP_ADD $end
-$var parameter 3 ; OP_BEQ $end
-$var parameter 3 < OP_HALT $end
-$var parameter 3 = OP_JALR $end
-$var parameter 3 > OP_LW $end
-$var parameter 3 ? OP_NOOP $end
-$var parameter 3 @ OP_NOR $end
-$var parameter 3 A OP_SW $end
+$var parameter 3 A OP_ADD $end
+$var parameter 3 B OP_BEQ $end
+$var parameter 3 C OP_HALT $end
+$var parameter 3 D OP_JALR $end
+$var parameter 3 E OP_LW $end
+$var parameter 3 F OP_NOOP $end
+$var parameter 3 G OP_NOR $end
+$var parameter 3 H OP_SW $end
 $var reg 1 8 CONTROL_ALUvalB $end
 $var reg 1 6 CONTROL_ENABLE_MEM_WRITE $end
 $var reg 1 5 CONTROL_ENABLE_REG_WRITE $end
@@ -73,90 +75,115 @@ $upscope $end
 $scope module dataM $end
 $var wire 1 6 CONTROL_ENABLE_MEM_WRITE $end
 $var wire 1 2 CONTROL_MEM_ACCESS $end
-$var wire 1 . aluResult $end
-$var wire 1 $ regBvalue $end
-$var reg 1 ) memResult $end
-$var integer 32 B ii [31:0] $end
+$var wire 32 I aluResult [31:0] $end
+$var wire 32 J regBvalue [31:0] $end
+$var reg 32 K memResult [31:0] $end
+$var integer 32 L ii [31:0] $end
 $upscope $end
 $scope module instrM $end
-$var wire 1 ' pcCurrent $end
-$var reg 32 C instr [31:0] $end
+$var wire 32 M pcCurrent [31:0] $end
+$var reg 32 N instr [31:0] $end
 $upscope $end
 $scope module pM $end
 $var wire 1 7 CONTROL_BEQ $end
 $var wire 1 3 CONTROL_JALR $end
 $var wire 1 + clk $end
-$var wire 1 % pcPlusOne $end
-$var wire 32 D offsetExtended [31:0] $end
-$var wire 1 - aluValA $end
-$var reg 1 & pcOutput $end
+$var wire 32 O pcPlusOne [31:0] $end
+$var wire 32 P offsetExtended [31:0] $end
+$var wire 32 Q aluValA [31:0] $end
+$var reg 32 R pcOutput [31:0] $end
 $upscope $end
 $scope module regM $end
 $var wire 1 5 CONTROL_ENABLE_REG_WRITE $end
-$var wire 3 E read_regA [2:0] $end
-$var wire 3 F read_regB [2:0] $end
-$var wire 1 " write_value $end
-$var wire 3 G write_reg [2:0] $end
-$var reg 1 - aluValA $end
-$var reg 1 $ regBvalue $end
-$var integer 32 H ii [31:0] $end
+$var wire 3 S read_regA [2:0] $end
+$var wire 3 T read_regB [2:0] $end
+$var wire 32 U write_value [31:0] $end
+$var wire 3 V write_reg [2:0] $end
+$var reg 32 W aluValA [31:0] $end
+$var reg 32 X reg1val [31:0] $end
+$var reg 32 Y regBvalue [31:0] $end
+$var integer 32 Z ii [31:0] $end
 $upscope $end
 $scope module sExtend $end
-$var wire 16 I offset [15:0] $end
-$var reg 32 J offsetExtended [31:0] $end
+$var wire 16 [ offset [15:0] $end
+$var reg 32 \ offsetExtended [31:0] $end
 $upscope $end
 $scope module vbMux $end
 $var wire 1 8 CONTROL_ALUvalB $end
 $var wire 1 + clk $end
-$var wire 32 K offsetExtended [31:0] $end
-$var wire 1 $ regBvalue $end
-$var reg 1 , aluValB $end
+$var wire 32 ] offsetExtended [31:0] $end
+$var wire 32 ^ regBvalue [31:0] $end
+$var reg 32 _ aluValB [31:0] $end
 $upscope $end
 $scope module wdMux $end
 $var wire 1 0 CONTROL_WRITE_DATA $end
-$var wire 1 . aluResult $end
+$var wire 32 ` aluResult [31:0] $end
 $var wire 1 + clk $end
-$var wire 1 ) memResult $end
-$var wire 1 % pcPlusOne $end
-$var reg 1 " write_value $end
+$var wire 32 a memResult [31:0] $end
+$var wire 32 b pcPlusOne [31:0] $end
+$var reg 32 c write_value [31:0] $end
 $upscope $end
 $scope module wrMux $end
 $var wire 1 / CONTROL_WRITE_REG $end
 $var wire 1 + clk $end
-$var wire 3 L destReg [2:0] $end
-$var wire 3 M regB [2:0] $end
-$var reg 3 N write_reg [2:0] $end
+$var wire 3 d destReg [2:0] $end
+$var wire 3 e regB [2:0] $end
+$var reg 3 f write_reg [2:0] $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 $comment Show the parameter values. $end
 $dumpall
-b11 A
-b1 @
-b111 ?
-b10 >
-b101 =
-b110 <
-b100 ;
-b0 :
+b11 H
+b1 G
+b111 F
+b10 E
+b101 D
+b110 C
+b100 B
+b0 A
 $end
 #0
 $dumpvars
+bx f
+bx e
+bx d
+bx c
+bx b
+bx a
+bx `
+bx _
+bx ^
+bx ]
+bx \
+bx [
+b1000 Z
+bx Y
+bx X
+bx W
+bx V
+bx U
+bx T
+bx S
+bx R
+bx Q
+bx P
+bx O
 bx N
-b1 M
-b10 L
-b1010 K
-b1010 J
-b1010 I
-b1000 H
-bx G
-b1 F
-b0 E
-b1010 D
-b100000010000000000001010 C
-b1000 B
-b10 9
-x8
+bx M
+b1000000 L
+bx K
+bx J
+bx I
+bx @
+bx ?
+bx >
+bx =
+bx <
+bx ;
+bx :
+19
+08
 x7
 x6
 x5
@@ -166,51 +193,446 @@ x2
 x1
 x0
 x/
-x.
-0-
-x,
+bx .
+bx -
+bx ,
 0+
-b100000010000000000001010 *
-x)
-b1010 (
-0'
-x&
-1%
-1$
-bx #
-x"
-z!
-$end
-#1
-bx (
-bx D
-bx J
-bx K
-x.
-x-
-bx 9
-bx F
-bx E
-bx I
-bx L
-bx M
-x$
 bx *
-bx C
-b1 #
-b1 G
-b1 N
-0,
-1&
-x%
-z'
+bx )
+bx (
+bx '
+bx &
+bx %
+bx $
+bx #
+bx "
+bx !
+$end
+#10
+b1 &
+b1 :
+b1 R
+07
+b1010 (
+b1010 P
+b1010 \
+b1010 ]
+b0 $
+b0 X
+b0 #
+b0 J
+b0 Y
+b0 ^
+b0 -
+b0 >
+b0 Q
+b0 W
+b10 @
+b1 T
+b0 S
+b1010 [
+b10 d
+b1 e
+b100000010000000000001010 *
+b100000010000000000001010 N
+b1 %
+b1 <
+b1 O
+b1 b
+b0 '
+b0 ;
+b0 M
+1+
+#100
+09
+0+
+#200
+b101 )
+b101 K
+b101 a
+b1001 (
+b1001 P
+b1001 \
+b1001 ]
+b1010 .
+b1010 ?
+b1010 I
+b1010 `
+b10 T
+b1001 [
+b1 d
+b10 e
+b10 $
+b10 X
+b0 #
+b0 J
+b0 Y
+b0 ^
+b100000100000000000001001 *
+b100000100000000000001001 N
+b1010 ,
+b1010 =
+b1010 _
+b1 "
+b1 V
+b1 f
+b10 !
+b10 U
+b10 c
 06
 12
 01
-08
 15
 00
 0/
+b10 %
+b10 <
+b10 O
+b10 b
+b1 '
+b1 ;
+b1 M
 1+
-#2
+#300
+0+
+#400
+b0 )
+b0 K
+b0 a
+b1 (
+b1 P
+b1 \
+b1 ]
+b1011 .
+b1011 ?
+b1011 I
+b1011 `
+b10 -
+b10 >
+b10 Q
+b10 W
+b0 @
+b1 S
+b1 [
+b101 #
+b101 J
+b101 Y
+b101 ^
+b10100000000000000001 *
+b10100000000000000001 N
+b101 !
+b101 U
+b101 c
+b10 "
+b10 V
+b10 f
+b1001 ,
+b1001 =
+b1001 _
+b11 %
+b11 <
+b11 O
+b11 b
+b10 '
+b10 ;
+b10 M
+b10 &
+b10 :
+b10 R
+1+
+#500
+0+
+#600
+b0 (
+b0 P
+b0 \
+b0 ]
+b1 .
+b1 ?
+b1 I
+b1 `
+b0 -
+b0 >
+b0 Q
+b0 W
+b111 @
+b0 T
+b0 S
+b0 [
+b0 d
+b0 e
+b0 #
+b0 J
+b0 Y
+b0 ^
+b1110000000000000000000000 *
+b1110000000000000000000000 N
+02
+10
+1/
+18
+b1 ,
+b1 =
+b1 _
+b0 !
+b0 U
+b0 c
+b100 %
+b100 <
+b100 O
+b100 b
+b11 '
+b11 ;
+b11 M
+b11 &
+b11 :
+b11 R
+1+
+#700
+0+
+#800
+b1 (
+b1 P
+b1 \
+b1 ]
+b10 .
+b10 ?
+b10 I
+b10 `
+b10 -
+b10 >
+b10 Q
+b10 W
+b0 @
+b10 T
+b1 S
+b1 [
+b1 d
+b10 e
+b10100000000000000001 *
+b10100000000000000001 N
+b0 "
+b0 V
+b0 f
+b0 ,
+b0 =
+b0 _
+b101 %
+b101 <
+b101 O
+b101 b
+b100 '
+b100 ;
+b100 M
+08
+05
+00
+0/
+b100 &
+b100 :
+b100 R
+1+
+#900
+0+
+#1000
+b0 (
+b0 P
+b0 \
+b0 ]
+b1 .
+b1 ?
+b1 I
+b1 `
+b0 -
+b0 >
+b0 Q
+b0 W
+b111 @
+b0 T
+b0 S
+b0 [
+b0 d
+b0 e
+b1110000000000000000000000 *
+b1110000000000000000000000 N
+15
+10
+1/
+18
+b1 ,
+b1 =
+b1 _
+b10 "
+b10 V
+b10 f
+b110 %
+b110 <
+b110 O
+b110 b
+b101 '
+b101 ;
+b101 M
+b101 &
+b101 :
+b101 R
+1+
+#1100
+0+
+#1200
+b1 (
+b1 P
+b1 \
+b1 ]
+b10 .
+b10 ?
+b10 I
+b10 `
+b10 -
+b10 >
+b10 Q
+b10 W
+b0 @
+b10 T
+b1 S
+b1 [
+b1 d
+b10 e
+b10100000000000000001 *
+b10100000000000000001 N
+b0 "
+b0 V
+b0 f
+b0 ,
+b0 =
+b0 _
+b111 %
+b111 <
+b111 O
+b111 b
+b110 '
+b110 ;
+b110 M
+08
+05
+00
+0/
+b110 &
+b110 :
+b110 R
+1+
+#1300
+0+
+#1400
+b0 (
+b0 P
+b0 \
+b0 ]
+b1 .
+b1 ?
+b1 I
+b1 `
+b0 -
+b0 >
+b0 Q
+b0 W
+b111 @
+b0 T
+b0 S
+b0 [
+b0 d
+b0 e
+b1110000000000000000000000 *
+b1110000000000000000000000 N
+15
+10
+1/
+18
+b1 ,
+b1 =
+b1 _
+b10 "
+b10 V
+b10 f
+b1000 %
+b1000 <
+b1000 O
+b1000 b
+b111 '
+b111 ;
+b111 M
+b111 &
+b111 :
+b111 R
+1+
+#1500
+0+
+#1600
+b0 .
+b0 ?
+b0 I
+b0 `
+b110 @
+b1100000000000000000000000 *
+b1100000000000000000000000 N
+b0 "
+b0 V
+b0 f
+b0 ,
+b0 =
+b0 _
+b1001 %
+b1001 <
+b1001 O
+b1001 b
+b1000 '
+b1000 ;
+b1000 M
+08
+05
+00
+0/
+b1000 &
+b1000 :
+b1000 R
+1+
+#1700
+0+
+#1800
+bx .
+bx ?
+bx I
+bx `
+bx (
+bx P
+bx \
+bx ]
+b0xxxxxxxx #
+b0xxxxxxxx J
+b0xxxxxxxx Y
+b0xxxxxxxx ^
+b0xxxxxxxx -
+b0xxxxxxxx >
+b0xxxxxxxx Q
+b0xxxxxxxx W
+bx @
+bx T
+bx S
+bx [
+bx d
+bx e
+bx *
+bx N
+14
+b1010 %
+b1010 <
+b1010 O
+b1010 b
+b1001 '
+b1001 ;
+b1001 M
+b1001 &
+b1001 :
+b1001 R
+1+
+#1900
 0+

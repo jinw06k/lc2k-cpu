@@ -2,11 +2,12 @@ module Reg_Memory(
     input [2:0] read_regA,
     input [2:0] read_regB,
     input [2:0] write_reg,
-    input write_value,
+    input [31:0] write_value,
     input CONTROL_ENABLE_REG_WRITE,
 
-    output reg aluValA,
-    output reg regBvalue
+    output reg [31:0] aluValA,
+    output reg [31:0] regBvalue,
+    output reg [31:0] reg1val
 );
 
   reg [7:0] Register [31:0];
@@ -15,7 +16,7 @@ module Reg_Memory(
 
   initial begin
       for (ii = 0; ii < 8; ii = ii + 1) begin
-        Register[ii] = ii;
+        Register[ii] = 0;
       end
   end
 
@@ -25,7 +26,8 @@ module Reg_Memory(
       end
       
       aluValA = Register[read_regA];
-      regBvalue = Register[read_regB];   
+      regBvalue = Register[read_regB]; 
+      reg1val = Register[1]; 
   end
 
 endmodule

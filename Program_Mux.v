@@ -1,27 +1,23 @@
 module Program_Mux(
     input clk,
-    input pcPlusOne,
+    input [31:0] pcPlusOne,
     input CONTROL_BEQ,
     input [31:0] offsetExtended,
     input CONTROL_JALR,
-    input aluValA,
+    input [31:0] aluValA,
 
-    output reg pcOutput
+    output reg [31:0] pcOutput
 ); 
-
-    initial begin
-        pcOutput <= 1;
-    end
 
     always @(posedge clk, CONTROL_BEQ, CONTROL_JALR) begin
         if (CONTROL_BEQ == 1) begin
-            pcOutput <= pcPlusOne + offsetExtended;
+            pcOutput = pcPlusOne + offsetExtended;
         end
         else if (CONTROL_JALR == 1) begin
-            pcOutput <= aluValA;
+            pcOutput = aluValA;
         end
         else begin
-            pcOutput <= pcPlusOne;
+            pcOutput = pcPlusOne;
         end
     end
     

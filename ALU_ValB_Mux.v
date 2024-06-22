@@ -1,10 +1,10 @@
 module ALU_ValB_Mux(
     input clk,
     input [31:0] offsetExtended,               // aluValB = 0
-    input regBvalue,                    // aluValB = 1
+    input [31:0] regBvalue,                    // aluValB = 1
     input CONTROL_ALUvalB,
 
-    output reg aluValB
+    output reg [31:0] aluValB
 );
 
     always @(posedge clk) begin

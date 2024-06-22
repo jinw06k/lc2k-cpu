@@ -1,5 +1,5 @@
 module Instr_Memory(
-    input pcCurrent,
+    input [31:0] pcCurrent,
     
     output reg [31:0] instr
 );

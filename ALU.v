@@ -1,9 +1,9 @@
 module ALU(
-    input aluValA,
-    input aluValB,
+    input [31:0] aluValA,
+    input [31:0] aluValB,
     input CONTROL_OPERATION,            // 0 = ADD, 1 = NOR, 2 = EQUAL?
 
-    output reg aluResult,
+    output reg [31:0] aluResult,
     output reg CONTROL_BEQ
 );
 
@@ -17,9 +17,9 @@ module ALU(
             if (aluValA == aluValB) begin   // if equal, jump
                 CONTROL_BEQ <= 1;
             end
-            else begin
-                CONTROL_BEQ <= 0;
-            end
+        end
+        else begin
+            CONTROL_BEQ <= 0;
         end
     end
 

@@ -4,13 +4,16 @@ module Clock (
 );
 
     initial begin
-        clk = 1'b0;
-        #1;
-        #1 clk = ~clk;
+        clk = 0;
+        #10 clk = 1;
+        #90 clk = 0;
     end
 
-    always @(CONTROL_HALT == 0) begin 
-        #1 clk = ~clk;
+    always begin 
+        if (CONTROL_HALT == 1) begin
+            $finish;
+        end
+        #100 clk = ~clk;
     end
 
 endmodule

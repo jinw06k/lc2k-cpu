@@ -1,19 +1,21 @@
 module Program_Counter(
   input clk,
-  input pcInput,
+  input [31:0] pcInput,
+  input reset,
 
-  output reg pcCurrent,
-  output reg pcPlusOne
+  output reg [31:0] pcCurrent,
+  output reg [31:0] pcPlusOne
 );
 
-  initial begin
-    pcCurrent <= 0;
-    pcPlusOne <= 1;
-  end
-
   always @(posedge clk) begin
-    pcCurrent = pcInput;
-    pcPlusOne = pcCurrent + 1;
+    if(reset == 1) begin
+      pcCurrent = 0;
+      pcPlusOne = 1;
+    end 
+    else begin
+      pcCurrent = pcInput;
+      pcPlusOne = pcInput + 1;
+    end
   end
   
 endmodule

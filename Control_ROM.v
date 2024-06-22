@@ -25,20 +25,21 @@ module Control_ROM(
     initial begin
         CONTROL_HALT = 0;
         CONTROL_JALR = 0;
+        CONTROL_ALUvalB = 0;
     end
 
     always @(posedge clk) begin
         case(opcode)
             OP_ADD: begin
-                CONTROL_HALT = 0;
-                CONTROL_JALR = 0;
-                CONTROL_WRITE_REG = 1;          // 1 = dest reg
-                CONTROL_WRITE_DATA = 1;         // 1 = aluResult
-                CONTROL_ENABLE_REG_WRITE = 1;   // 1 = write register
-                CONTROL_ALUvalB = 1;            // 1 = regBvalue
-                CONTROL_OPERATION = 0;          // 0 = add
-                CONTROL_MEM_ACCESS = 0;         // 0 = memory not accessed
-                CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
+                CONTROL_ALUvalB <= 1;            // 1 = regBvalue
+                CONTROL_HALT <= 0;
+                CONTROL_JALR <= 0;
+                CONTROL_WRITE_REG <= 1;          // 1 = dest reg
+                CONTROL_WRITE_DATA <= 1;         // 1 = aluResult
+                CONTROL_ENABLE_REG_WRITE <= 1;   // 1 = write register
+                CONTROL_OPERATION <= 0;          // 0 = add
+                CONTROL_MEM_ACCESS <= 0;         // 0 = memory not accessed
+                CONTROL_ENABLE_MEM_WRITE <= 0;   // 0 = read mem
             end
             OP_NOR: begin
                 CONTROL_HALT = 0;
@@ -56,8 +57,8 @@ module Control_ROM(
                 CONTROL_JALR = 0;
                 CONTROL_WRITE_REG = 0;          // 0 = regB
                 CONTROL_WRITE_DATA = 0;         // 0 = memResult
-                CONTROL_ENABLE_REG_WRITE = 1;   // 1 = write register
                 CONTROL_ALUvalB = 0;            // 0 = offsetExtended
+                CONTROL_ENABLE_REG_WRITE = 1;   // 1 = write register
                 CONTROL_OPERATION = 0;          // 0 = add
                 CONTROL_MEM_ACCESS = 1;         // 1 = memory accessed
                 CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem

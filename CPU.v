@@ -6,13 +6,22 @@ vvp dsn
 
 */
 
+/*
+
+CPU:
+    reg pcCurrent
+    wire assign pcCurrent
+
+*/
+
 module CPU();
 
-    wire clk, pcInput, pcCurrent, pcPlusOne;
+    wire clk;
+    wire [31:0] pcInput, pcCurrent, pcPlusOne;
     wire [31:0] offsetExtended;
-    wire write_value, aluValA, regBvalue, aluValB, aluResult;
+    wire [31:0] write_value, aluValA, regBvalue, aluValB, aluResult;
     wire [2:0] write_reg;
-    wire memResult;
+    wire [31:0] memResult;
 
     wire [31 : 0] instruction;
 
@@ -20,6 +29,13 @@ module CPU();
     wire CONTROL_ENABLE_REG_WRITE, CONTROL_ALUvalB, CONTROL_OPERATION;
     wire CONTROL_MEM_ACCESS, CONTROL_ENABLE_MEM_WRITE;
     wire CONTROL_BEQ, CONTROL_JALR, CONTROL_HALT;
+
+    reg pc_reset;
+
+    initial begin
+        pc_reset = 1; 
+        #100 pc_reset = 0;
+    end
 
     Clock clock(
         .CONTROL_HALT(CONTROL_HALT),
@@ -30,7 +46,8 @@ module CPU();
         .clk(clk),
         .pcInput(pcInput),
         .pcCurrent(pcCurrent),
-        .pcPlusOne(pcPlusOne)
+        .pcPlusOne(pcPlusOne),
+        .reset(pc_reset)
     );
 
     Program_Mux pM(
@@ -40,7 +57,7 @@ module CPU();
         .offsetExtended(offsetExtended),
         .CONTROL_JALR(CONTROL_JALR),
         .aluValA(aluValA),
-        .pcOutput(pcOutput)
+        .pcOutput(pcInput)
     );
 
     Instr_Memory instrM(
@@ -70,6 +87,7 @@ module CPU();
         .offsetExtended(offsetExtended)
     );
 
+    wire [31:0] reg1val;
     Reg_Memory regM(
         .read_regA(instruction[21:19]),
         .read_regB(instruction[18:16]),
@@ -77,7 +95,8 @@ module CPU();
         .write_value(write_value),
         .CONTROL_ENABLE_REG_WRITE(CONTROL_ENABLE_REG_WRITE),
         .aluValA(aluValA),
-        .regBvalue(regBvalue)
+        .regBvalue(regBvalue),
+        .reg1val(reg1val)
     );
 
     ALU_ValB_Mux vbMux(
@@ -124,7 +143,7 @@ module CPU();
     end
 
     initial
-     $monitor("At time %t, clock = %0d, pcInput = %0d, pcCurrent = %0d, pc+1 = %0d, value = %h (%0d)",
-              $time, clk, pcInput, pcCurrent, pcPlusOne, instruction, instruction);
+    $monitor("At time %t, clock = %0d, pcReset = %0d, pcInput = %0d, pcCurrent = %0d, pc+1 = %0d, value = %h (%0d), halt = %0d",
+              $time, clk, pc_reset, pcInput, pcCurrent, pcPlusOne, instruction, instruction, CONTROL_HALT);
 
 endmodule

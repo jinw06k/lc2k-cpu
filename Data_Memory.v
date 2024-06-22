@@ -1,10 +1,10 @@
 module Data_Memory(
-    input aluResult,
-    input regBvalue,
+    input [31:0] aluResult,
+    input [31:0] regBvalue,
     input CONTROL_MEM_ACCESS,               // 1 = accessed
     input CONTROL_ENABLE_MEM_WRITE,         // 1 = write, 0 = read
     
-    output reg memResult
+    output reg [31:0] memResult
 );
 
     reg [63:0] Data[63:0];
@@ -12,10 +12,10 @@ module Data_Memory(
     integer ii;
 
     initial begin
-        for (ii = 0; ii < 8; ii = ii + 1) begin
+        for (ii = 0; ii < 64; ii = ii + 1) begin
         Data[ii] = 0;
         end
-        Data[9] = -1;
+        Data[9] = 1;
         Data[10] = 5;
     end
 

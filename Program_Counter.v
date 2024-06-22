@@ -7,8 +7,8 @@ module Program_Counter(
 );
 
   initial begin
-    pcCurrent = 0;
-    pcPlusOne = 1;
+    pcCurrent <= 0;
+    pcPlusOne <= 1;
   end
 
   always @(posedge clk) begin

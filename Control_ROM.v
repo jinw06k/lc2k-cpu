@@ -24,6 +24,7 @@ module Control_ROM(
 
     initial begin
         CONTROL_HALT = 0;
+        CONTROL_JALR = 0;
     end
 
     always @(posedge clk) begin

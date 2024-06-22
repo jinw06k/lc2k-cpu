@@ -1,3 +1,11 @@
+/*
+
+iverilog -o dsn ALU_ValB_Mux.v ALU.v Clock.V Control_ROM.v CPU.v Data_Memory.v Instr_Memory.v Program_Counter.v Program_Mux.v Reg_Memory.v Sign_Extend.v Write_Data_Mux.v Write_Reg_Mux.v
+
+vvp dsn
+
+*/
+
 module CPU();
 
     wire clk, pcInput, pcCurrent, pcPlusOne;
@@ -116,7 +124,7 @@ module CPU();
     end
 
     initial
-     $monitor("At time %t, clock = %0d value = %h (%0d)",
-              $time, clk, instruction, instruction);
+     $monitor("At time %t, clock = %0d, pcInput = %0d, pcCurrent = %0d, pc+1 = %0d, value = %h (%0d)",
+              $time, clk, pcInput, pcCurrent, pcPlusOne, instruction, instruction);
 
 endmodule

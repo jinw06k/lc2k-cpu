@@ -6,6 +6,7 @@ module Clock (
     initial begin
         clk = 1'b0;
         #1;
+        #1 clk = ~clk;
     end
 
     always @(CONTROL_HALT == 0) begin 

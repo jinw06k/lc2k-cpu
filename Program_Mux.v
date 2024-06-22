@@ -10,7 +10,7 @@ module Program_Mux(
 ); 
 
     initial begin
-        pcOutput = 0;
+        pcOutput <= 1;
     end
 
     always @(posedge clk, CONTROL_BEQ, CONTROL_JALR) begin

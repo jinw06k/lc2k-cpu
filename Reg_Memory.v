@@ -20,13 +20,12 @@ initial begin
 end
 
 always @(read_regA, read_regB, write_reg, write_value, CONTROL_ENABLE_REG_WRITE) begin
-
-    aluValA <= Register[read_regA];
-    regBvalue <= Register[read_regB];
-
     if (CONTROL_ENABLE_REG_WRITE == 1) begin
-      Regiter[write_reg] <= write_value;
+      Regiter[write_reg] = write_value;
     end
+    
+    aluValA = Register[read_regA];
+    regBvalue = Register[read_regB];   
 end
 
 endmodule

@@ -4,8 +4,7 @@ module ALU(
     input CONTROL_OPERATION,            // 0 = ADD, 1 = NOR, 2 = EQUAL?
 
     output reg aluResult,
-    output reg CONTROL_JUMP,
-    output reg jump_destination
+    output reg CONTROL_BEQ,
 );
 
 always @ (aluValA, aluValB, CONTROL_OPERATION) begin
@@ -16,11 +15,10 @@ always @ (aluValA, aluValB, CONTROL_OPERATION) begin
 
     if (CONTROL_OPERATION == 2'b10) begin
         if (aluValA == aluValB) begin   // if equal, jump
-            CONTROL_JUMP <= 1;
-            pcPrev + 1 + offsetExtended
+            CONTROL_BEQ <= 1;
         end
         else begin
-            CONTROL_JUMP <= 0;
+            CONTROL_BEQ <= 0;
         end
     end
 end

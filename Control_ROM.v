@@ -2,7 +2,6 @@ module Control_ROM(
     input clk,
     input [2:0] opcode,
 
-    output CONTROL_JUMP,                    // 1 = jump
     output CONTROL_WRITE_REG,               // 1 = dest reg     0 = regB
     output CONTROL_WRITE_DATA,              // 1 = aluResult    0 = memResult
     output CONTROL_ENABLE_REG_WRITE,        // 1 = write register
@@ -24,6 +23,7 @@ parameter OP_NOOP = 3'b111;
 always @(posedge clk) begin
     case(opcode)
         OP_ADD: begin
+            CONTROL_JALR = 0;
             CONTROL_WRITE_REG = 1;          // 1 = dest reg
             CONTROL_WRITE_DATA = 1;         // 1 = aluResult
             CONTROL_ENABLE_REG_WRITE = 1;   // 1 = write register
@@ -33,6 +33,7 @@ always @(posedge clk) begin
             CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
         end
         OP_NOR: begin
+            CONTROL_JALR = 0;
             CONTROL_WRITE_REG = 1;          // 1 = dest reg
             CONTROL_WRITE_DATA = 1;         // 1 = aluResult 
             CONTROL_ENABLE_REG_WRITE = 1;   // 1 = write register
@@ -42,6 +43,7 @@ always @(posedge clk) begin
             CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
         end
         OP_LW: begin
+            CONTROL_JALR = 0;
             CONTROL_WRITE_REG = 0;          // 0 = regB
             CONTROL_WRITE_DATA = 0;         // 0 = memResult
             CONTROL_ENABLE_REG_WRITE = 1;   // 1 = write register
@@ -51,6 +53,7 @@ always @(posedge clk) begin
             CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
         end
         OP_SW: begin
+            CONTROL_JALR = 0;
             CONTROL_WRITE_REG = 0;          // 0 = regB
             CONTROL_WRITE_DATA = 0;         // 0 = memResult
             CONTROL_ENABLE_REG_WRITE = 0;   // 0 = don't write reg
@@ -60,6 +63,7 @@ always @(posedge clk) begin
             CONTROL_ENABLE_MEM_WRITE = 1;   // 1 = write mem
         end
         OP_BEQ: begin
+            CONTROL_JALR = 0;
             CONTROL_WRITE_REG = 0;          // 0 = regB
             CONTROL_WRITE_DATA = 0;         // 0 = memResult
             CONTROL_ENABLE_REG_WRITE = 0;   // 0 = don't write reg
@@ -69,17 +73,17 @@ always @(posedge clk) begin
             CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
         end
         OP_JALR: begin
-            CONTROL_JUMP = 0;               // 1 = jump (always)
-            CONTROL_WRITE_REG = 1;          // 1 = dest reg     0 = regB
-            CONTROL_WRITE_DATA = 1;         // 1 = aluResult    0 = memResult
+            CONTROL_WRITE_REG = 0;          // 0 = regB
+            CONTROL_WRITE_DATA = 2;         // 1 = pc+1
             CONTROL_ENABLE_REG_WRITE = 1;   // 1 = write register
-            CONTROL_ALUvalB = 1;            // 1 = regBvalue    0 = offsetExtended
-            CONTROL_OPERATION = 0;          // 1 = nor          0 = add
-            CONTROL_MEM_ACCESS = 0;         // 1 = memory accessed
-            CONTROL_ENABLE_MEM_WRITE = 0;   // 1 = write mem    0 = read mem
+            CONTROL_JALR = 1;               // 1 = jalr jump
+            CONTROL_ALUvalB = 0;            // 0 = offsetExtended
+            CONTROL_OPERATION = 0;          // 0 = add
+            CONTROL_MEM_ACCESS = 0;         // 0 = memory not accessed
+            CONTROL_ENABLE_MEM_WRITE = 0;   // 0 = read mem
         end
         OP_HALT: begin
-            CONTROL_JUMP = 0;               // 1 = jump
+            CONTROL_JALR = 0;
             CONTROL_WRITE_REG = 0;          // 1 = dest reg     0 = regB
             CONTROL_WRITE_DATA = 0;         // 1 = aluResult    0 = memResult
             CONTROL_ENABLE_REG_WRITE = 0;   // 1 = write register
@@ -89,7 +93,7 @@ always @(posedge clk) begin
             CONTROL_ENABLE_MEM_WRITE = 0;   // 1 = write mem    0 = read mem
         end
         OP_NOOP: begin
-            CONTROL_JUMP = 0;               // 1 = jump
+            CONTROL_JALR = 0;
             CONTROL_WRITE_REG = 0;          // 1 = dest reg     0 = regB
             CONTROL_WRITE_DATA = 0;         // 1 = aluResult    0 = memResult
             CONTROL_ENABLE_REG_WRITE = 0;   // 1 = write register

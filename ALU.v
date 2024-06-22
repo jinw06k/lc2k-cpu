@@ -7,20 +7,20 @@ module ALU(
     output reg CONTROL_BEQ,
 );
 
-always @ (aluValA, aluValB, CONTROL_OPERATION) begin
-	case(CONTROL_OPERATION):
-        2'b00: aluResult <= aluValA + aluValB;
-        2'b01: aluResult <= ~(aluValA | aluValA); 
-    endcase
+    always @ (aluValA, aluValB, CONTROL_OPERATION) begin
+        case(CONTROL_OPERATION):
+            2'b00: aluResult <= aluValA + aluValB;
+            2'b01: aluResult <= ~(aluValA | aluValA); 
+        endcase
 
-    if (CONTROL_OPERATION == 2'b10) begin
-        if (aluValA == aluValB) begin   // if equal, jump
-            CONTROL_BEQ <= 1;
-        end
-        else begin
-            CONTROL_BEQ <= 0;
+        if (CONTROL_OPERATION == 2'b10) begin
+            if (aluValA == aluValB) begin   // if equal, jump
+                CONTROL_BEQ <= 1;
+            end
+            else begin
+                CONTROL_BEQ <= 0;
+            end
         end
     end
-end
 
 endmodule

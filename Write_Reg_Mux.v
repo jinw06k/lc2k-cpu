@@ -4,16 +4,16 @@ module Write_Reg_Mux(
     input [2:0] destReg,            // writeReg = 1
     input CONTROL_WRITE_REG,
 
-    output reg [2:0] writeReg
+    output reg [2:0] write_reg
 );
 
-always @(posedge clk) begin
-    if (CONTROL_WRITE_REG == 1) begin   // use destReg
-        writeReg <= destReg;
+    always @(posedge clk) begin
+        if (CONTROL_WRITE_REG == 1) begin   // use destReg
+            write_reg <= destReg;
+        end
+        else begin
+            write_reg <= regB;
+        end
     end
-    else begin
-        writeReg <= regB;
-    end
-end
 
 endmodule

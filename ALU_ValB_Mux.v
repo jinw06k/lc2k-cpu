@@ -7,13 +7,13 @@ module ALU_ValB_Mux(
     output reg aluValB
 );
 
-always @(posedge clk){
-    if (CONTROL_ALUvalB == 1) begin   // use regBvalue
-        aluValB <= regBvalue;
-    end
-    else begin
-        aluValB <= offsetExtended;
-    end
-}
+    always @(posedge clk){
+        if (CONTROL_ALUvalB == 1) begin   // use regBvalue
+            aluValB <= regBvalue;
+        end
+        else begin
+            aluValB <= offsetExtended;
+        end
+    }
 
 endmodule

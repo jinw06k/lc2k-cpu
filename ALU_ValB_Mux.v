@@ -1,5 +1,4 @@
 module ALU_ValB_Mux(
-    input clk,
     input [31:0] offsetExtended,               // aluValB = 0
     input [31:0] regBvalue,                    // aluValB = 1
     input CONTROL_ALUvalB,
@@ -7,7 +6,7 @@ module ALU_ValB_Mux(
     output reg [31:0] aluValB
 );
 
-    always @(posedge clk) begin
+    always @(offsetExtended, regBvalue, CONTROL_ALUvalB) begin
         if (CONTROL_ALUvalB == 1) begin   // use regBvalue
             aluValB <= regBvalue;
         end

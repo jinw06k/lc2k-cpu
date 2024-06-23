@@ -5,8 +5,6 @@ module Clock (
 
     initial begin
         clk = 0;
-        #10 clk = 1;
-        #90 clk = 0;
     end
 
     always begin 

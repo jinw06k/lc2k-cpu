@@ -26,7 +26,8 @@ module CPU();
     wire [31 : 0] instruction;
 
     wire CONTROL_WRITE_REG, CONTROL_WRITE_DATA;
-    wire CONTROL_ENABLE_REG_WRITE, CONTROL_ALUvalB, CONTROL_OPERATION;
+    wire CONTROL_ENABLE_REG_WRITE, CONTROL_ALUvalB;
+    wire [1:0] CONTROL_OPERATION;
     wire CONTROL_MEM_ACCESS, CONTROL_ENABLE_MEM_WRITE;
     wire CONTROL_BEQ, CONTROL_JALR, CONTROL_HALT;
 
@@ -34,7 +35,7 @@ module CPU();
 
     initial begin
         pc_reset = 1; 
-        #100 pc_reset = 0;
+        #150 pc_reset = 0;
     end
 
     Clock clock(
@@ -51,7 +52,7 @@ module CPU();
     );
 
     Program_Mux pM(
-        .clk(clk),
+        .pcCurrent(pcCurrent),
         .pcPlusOne(pcPlusOne),
         .CONTROL_BEQ(CONTROL_BEQ),
         .offsetExtended(offsetExtended),
@@ -66,7 +67,6 @@ module CPU();
     );
 
     Write_Data_Mux wdMux(
-        .clk(clk),
         .memResult(memResult),
         .aluResult(aluResult),
         .pcPlusOne(pcPlusOne),
@@ -75,7 +75,6 @@ module CPU();
     );
 
     Write_Reg_Mux wrMux(
-        .clk(clk),
         .regB(instruction[18:16]),
         .destReg(instruction[2:0]),
         .CONTROL_WRITE_REG(CONTROL_WRITE_REG),
@@ -100,7 +99,6 @@ module CPU();
     );
 
     ALU_ValB_Mux vbMux(
-        .clk(clk),
         .offsetExtended(offsetExtended),
         .regBvalue(regBvalue),
         .CONTROL_ALUvalB(CONTROL_ALUvalB),
@@ -125,6 +123,7 @@ module CPU();
 
     Control_ROM cRom(
         .clk(clk),
+        .pcCurrent(pcCurrent),
         .opcode(instruction[24:22]),
         .CONTROL_WRITE_REG(CONTROL_WRITE_REG),
         .CONTROL_WRITE_DATA(CONTROL_WRITE_DATA),

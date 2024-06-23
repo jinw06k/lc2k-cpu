@@ -1,5 +1,4 @@
 module Write_Data_Mux(
-    input clk,
     input [31:0] memResult,                // writeData = 0 
     input [31:0] aluResult,                // writeData = 1
     input [31:0] pcPlusOne,                // writeData = 2
@@ -8,7 +7,7 @@ module Write_Data_Mux(
     output reg [31:0] write_value
 );
 
-    always @(posedge clk) begin
+    always @(CONTROL_WRITE_DATA, memResult, aluResult, pcPlusOne) begin
         if (CONTROL_WRITE_DATA == 1) begin   // use aluResult
             write_value <= aluResult;
         end

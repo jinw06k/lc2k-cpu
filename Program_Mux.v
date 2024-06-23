@@ -1,5 +1,5 @@
 module Program_Mux(
-    input clk,
+    input [31:0] pcCurrent,
     input [31:0] pcPlusOne,
     input CONTROL_BEQ,
     input [31:0] offsetExtended,
@@ -9,7 +9,7 @@ module Program_Mux(
     output reg [31:0] pcOutput
 ); 
 
-    always @(posedge clk, CONTROL_BEQ, CONTROL_JALR) begin
+    always @(pcCurrent, CONTROL_BEQ, CONTROL_JALR) begin
         if (CONTROL_BEQ == 1) begin
             pcOutput = pcPlusOne + offsetExtended;
         end

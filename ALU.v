@@ -1,7 +1,7 @@
 module ALU(
     input [31:0] aluValA,
     input [31:0] aluValB,
-    input CONTROL_OPERATION,            // 0 = ADD, 1 = NOR, 2 = EQUAL?
+    input [1:0] CONTROL_OPERATION,            // 0 = ADD, 1 = NOR, 2 = EQUAL?
 
     output reg [31:0] aluResult,
     output reg CONTROL_BEQ

@@ -9,12 +9,12 @@ module Program_Counter(
 
   always @(posedge clk) begin
     if(reset == 1) begin
-      pcCurrent = 0;
-      pcPlusOne = 1;
+      pcCurrent <= 0;
+      pcPlusOne <= 1;
     end 
     else begin
-      pcCurrent = pcInput;
-      pcPlusOne = pcInput + 1;
+      pcCurrent <= pcInput;
+      pcPlusOne <= pcInput + 1;
     end
   end
   

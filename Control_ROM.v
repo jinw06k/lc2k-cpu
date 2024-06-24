@@ -29,7 +29,7 @@ module Control_ROM(
         CONTROL_ALUvalB <= 0;
     end
 
-    always @(pcCurrent) begin
+    always @(pcCurrent, posedge clk) begin
         case(opcode)
             OP_ADD: begin
                 CONTROL_ALUvalB <= 1;            // 1 = regBvalue

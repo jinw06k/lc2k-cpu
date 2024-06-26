@@ -3,7 +3,7 @@ module Clock (
 );
 
     initial begin
-        clk = 0;
+        clk = 1;
     end
 
     always begin 

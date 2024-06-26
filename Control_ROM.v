@@ -2,6 +2,7 @@ module Control_ROM(
     input clk,
     input [31:0] pcCurrent,
     input [2:0] opcode,
+    input [31 : 0] instruction,
 
     output reg CONTROL_WRITE_REG,               // 1 = dest reg     0 = regB
     output reg CONTROL_WRITE_DATA,              // 1 = aluResult    0 = memResult
@@ -11,7 +12,8 @@ module Control_ROM(
     output reg CONTROL_MEM_ACCESS,              // 1 = memory accessed
     output reg CONTROL_ENABLE_MEM_WRITE,        // 1 = write mem    0 = read mem
     output reg CONTROL_HALT,
-    output reg CONTROL_JALR
+    output reg CONTROL_JALR,
+    output reg temp
 );
 
     parameter OP_ADD = 3'b000;
@@ -35,16 +37,16 @@ module Control_ROM(
         CONTROL_ENABLE_MEM_WRITE <= 0;   // 1 = write mem    0 = read mem
     end
 
-    always @(pcCurrent, posedge clk) begin
+    always @(opcode) begin
         case(opcode)
             OP_ADD: begin
-                CONTROL_ALUvalB <= 1;            // 1 = regBvalue
                 CONTROL_HALT <= 0;
                 CONTROL_JALR <= 0;
                 CONTROL_WRITE_REG <= 1;          // 1 = dest reg
                 CONTROL_WRITE_DATA <= 1;         // 1 = aluResult
-                CONTROL_OPERATION <= 2'b00;          // 0 = add
                 CONTROL_ENABLE_REG_WRITE <= 1;   // 1 = write register
+                CONTROL_ALUvalB <= 1;            // 1 = regBvalue
+                CONTROL_OPERATION <= 2'b00;          // 0 = add
                 CONTROL_MEM_ACCESS <= 0;         // 0 = memory not accessed
                 CONTROL_ENABLE_MEM_WRITE <= 0;   // 0 = read mem
             end
@@ -126,15 +128,15 @@ module Control_ROM(
                 CONTROL_ENABLE_MEM_WRITE <= 0;   // 1 = write mem    0 = read mem
             end
             default: begin
+                CONTROL_ALUvalB <= 0;            // 1 = regBvalue
                 CONTROL_HALT <= 0;
                 CONTROL_JALR <= 0;
-                CONTROL_WRITE_REG <= 0;          // 1 = dest reg     0 = regB
-                CONTROL_WRITE_DATA <= 0;         // 1 = aluResult    0 = memResult
+                CONTROL_WRITE_REG <= 0;          // 1 = dest reg
+                CONTROL_WRITE_DATA <= 0;         // 1 = aluResult
+                CONTROL_OPERATION <= 2'b00;          // 0 = add
                 CONTROL_ENABLE_REG_WRITE <= 0;   // 1 = write register
-                CONTROL_ALUvalB <= 0;            // 1 = regBvalue    0 = offsetExtended
-                CONTROL_OPERATION <= 2'b00;          // 1 = nor          0 = add
-                CONTROL_MEM_ACCESS <= 0;         // 1 = memory accessed
-                CONTROL_ENABLE_MEM_WRITE <= 0;   // 1 = write mem    0 = read mem
+                CONTROL_MEM_ACCESS <= 0;         // 0 = memory not accessed
+                CONTROL_ENABLE_MEM_WRITE <= 0;
             end
         endcase
     end

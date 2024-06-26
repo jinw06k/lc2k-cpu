@@ -31,12 +31,7 @@ module CPU();
     wire CONTROL_MEM_ACCESS, CONTROL_ENABLE_MEM_WRITE;
     wire CONTROL_BEQ, CONTROL_JALR, CONTROL_HALT;
 
-    reg pc_reset;
-
-    initial begin
-        pc_reset = 1; 
-        #150 pc_reset = 0;
-    end
+    wire temp;
 
     Clock clock(
         .clk(clk)
@@ -47,8 +42,7 @@ module CPU();
         .CONTROL_HALT(CONTROL_HALT),
         .pcInput(pcInput),
         .pcCurrent(pcCurrent),
-        .pcPlusOne(pcPlusOne),
-        .reset(pc_reset)
+        .pcPlusOne(pcPlusOne)
     );
 
     Program_Mux pM(
@@ -62,6 +56,7 @@ module CPU();
     );
 
     Instr_Memory instrM(
+        .clk(clk),
         .pcCurrent(pcCurrent),
         .instr(instruction)
     );
@@ -125,6 +120,7 @@ module CPU();
         .clk(clk),
         .pcCurrent(pcCurrent),
         .opcode(instruction[24:22]),
+        .instruction(instruction),
         .CONTROL_WRITE_REG(CONTROL_WRITE_REG),
         .CONTROL_WRITE_DATA(CONTROL_WRITE_DATA),
         .CONTROL_ENABLE_REG_WRITE(CONTROL_ENABLE_REG_WRITE),
@@ -133,7 +129,8 @@ module CPU();
         .CONTROL_MEM_ACCESS(CONTROL_MEM_ACCESS),
         .CONTROL_ENABLE_MEM_WRITE(CONTROL_ENABLE_MEM_WRITE),
         .CONTROL_HALT(CONTROL_HALT),
-        .CONTROL_JALR(CONTROL_JALR)
+        .CONTROL_JALR(CONTROL_JALR),
+        .temp(temp)
     );
 
     initial begin
@@ -142,7 +139,7 @@ module CPU();
     end
 
     initial
-    $monitor("At time %t, clock = %0d, pcReset = %0d, pcInput = %0d, pcCurrent = %0d, pc+1 = %0d, value = %h (%0d), halt = %0d",
-              $time, clk, pc_reset, pcInput, pcCurrent, pcPlusOne, instruction, instruction[24:22], CONTROL_HALT);
+    $monitor("At time %t, clock = %0d, pcCurrent = %0d, value = %h (%0d), reg1 = %0d",
+              $time, clk, pcCurrent, instruction, instruction[24:22], reg1val);
 
 endmodule

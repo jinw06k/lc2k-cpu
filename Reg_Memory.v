@@ -27,7 +27,7 @@ module Reg_Memory(
       
       aluValA = Register[read_regA];
       regBvalue = Register[read_regB]; 
-      reg1val = Register[1]; 
+      reg1val = Register[1];
   end
 
 endmodule

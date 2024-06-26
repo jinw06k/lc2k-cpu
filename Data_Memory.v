@@ -15,8 +15,14 @@ module Data_Memory(
         for (ii = 0; ii < 64; ii = ii + 1) begin
         Data[ii] = 0;
         end
-        Data[9] = 1;
+        // Data[9] = -1;
+        // Data[10] = 5;
+
+        // Data[8] = 5;
+        // Data[9] = 7;
+
         Data[10] = 5;
+        Data[11] = 7;
     end
 
     always @(aluResult, regBvalue, CONTROL_MEM_ACCESS, CONTROL_ENABLE_MEM_WRITE) begin

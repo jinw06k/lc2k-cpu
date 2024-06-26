@@ -39,12 +39,12 @@ module CPU();
     end
 
     Clock clock(
-        .CONTROL_HALT(CONTROL_HALT),
         .clk(clk)
     );
 
     Program_Counter PC(
         .clk(clk),
+        .CONTROL_HALT(CONTROL_HALT),
         .pcInput(pcInput),
         .pcCurrent(pcCurrent),
         .pcPlusOne(pcPlusOne),
@@ -143,6 +143,6 @@ module CPU();
 
     initial
     $monitor("At time %t, clock = %0d, pcReset = %0d, pcInput = %0d, pcCurrent = %0d, pc+1 = %0d, value = %h (%0d), halt = %0d",
-              $time, clk, pc_reset, pcInput, pcCurrent, pcPlusOne, instruction, instruction, CONTROL_HALT);
+              $time, clk, pc_reset, pcInput, pcCurrent, pcPlusOne, instruction, instruction[24:22], CONTROL_HALT);
 
 endmodule

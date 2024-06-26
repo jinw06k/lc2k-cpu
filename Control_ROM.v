@@ -26,7 +26,13 @@ module Control_ROM(
     initial begin
         CONTROL_HALT <= 0;
         CONTROL_JALR <= 0;
-        CONTROL_ALUvalB <= 0;
+        CONTROL_WRITE_REG <= 0;          // 1 = dest reg     0 = regB
+        CONTROL_WRITE_DATA <= 0;         // 1 = aluResult    0 = memResult
+        CONTROL_ENABLE_REG_WRITE <= 0;   // 1 = write register
+        CONTROL_ALUvalB <= 0;            // 1 = regBvalue    0 = offsetExtended
+        CONTROL_OPERATION <= 2'b00;          // 1 = nor          0 = add
+        CONTROL_MEM_ACCESS <= 0;         // 1 = memory accessed
+        CONTROL_ENABLE_MEM_WRITE <= 0;   // 1 = write mem    0 = read mem
     end
 
     always @(pcCurrent, posedge clk) begin
@@ -37,8 +43,8 @@ module Control_ROM(
                 CONTROL_JALR <= 0;
                 CONTROL_WRITE_REG <= 1;          // 1 = dest reg
                 CONTROL_WRITE_DATA <= 1;         // 1 = aluResult
-                CONTROL_ENABLE_REG_WRITE <= 1;   // 1 = write register
                 CONTROL_OPERATION <= 2'b00;          // 0 = add
+                CONTROL_ENABLE_REG_WRITE <= 1;   // 1 = write register
                 CONTROL_MEM_ACCESS <= 0;         // 0 = memory not accessed
                 CONTROL_ENABLE_MEM_WRITE <= 0;   // 0 = read mem
             end

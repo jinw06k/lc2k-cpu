@@ -44,7 +44,7 @@ module Control_ROM(
                 CONTROL_JALR <= 0;
                 CONTROL_WRITE_REG <= 1;          // 1 = dest reg
                 CONTROL_WRITE_DATA <= 1;         // 1 = aluResult
-                CONTROL_ENABLE_REG_WRITE <= 1;   // 1 = write register
+                CONTROL_ENABLE_REG_WRITE <= 0;   // 0 = wait for ALU
                 CONTROL_ALUvalB <= 1;            // 1 = regBvalue
                 CONTROL_OPERATION <= 2'b00;          // 0 = add
                 CONTROL_MEM_ACCESS <= 0;         // 0 = memory not accessed
@@ -55,7 +55,7 @@ module Control_ROM(
                 CONTROL_JALR <= 0;
                 CONTROL_WRITE_REG <= 1;          // 1 = dest reg
                 CONTROL_WRITE_DATA <= 1;         // 1 = aluResult 
-                CONTROL_ENABLE_REG_WRITE <= 1;   // 1 = write register
+                CONTROL_ENABLE_REG_WRITE <= 0;   // 0 = wait for ALU
                 CONTROL_ALUvalB <= 1;            // 1 = regBvalue
                 CONTROL_OPERATION <= 2'b01;          // 1 = nor
                 CONTROL_MEM_ACCESS <= 0;         // 0 = memory not accessed
@@ -89,7 +89,7 @@ module Control_ROM(
                 CONTROL_WRITE_REG <= 0;          // 0 = regB
                 CONTROL_WRITE_DATA <= 0;         // 0 = memResult
                 CONTROL_ENABLE_REG_WRITE <= 0;   // 0 = don't write reg
-                CONTROL_ALUvalB <= 0;            // 1 = regBvalue
+                CONTROL_ALUvalB <= 1;            // 1 = regBvalue
                 CONTROL_OPERATION <= 2'b10;          // 2 = equal?
                 CONTROL_MEM_ACCESS <= 0;         // 0 = memory not accessed
                 CONTROL_ENABLE_MEM_WRITE <= 0;   // 0 = read mem

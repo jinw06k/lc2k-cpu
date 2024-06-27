@@ -1,7 +1,7 @@
 module Clock (
     output reg clk
 );
-
+ 
     initial begin
         clk = 1;
     end

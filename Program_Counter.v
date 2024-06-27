@@ -16,9 +16,6 @@ module Program_Counter(
     if (CONTROL_HALT == 1) begin
       $finish;
     end
-    else if (pcCurrent == 4) begin
-      $finish;
-    end
     else begin
       pcCurrent <= pcInput;
       pcPlusOne <= pcInput + 1;

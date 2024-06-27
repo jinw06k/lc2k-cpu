@@ -5,7 +5,7 @@ module Write_Reg_Mux(
 
     output reg [2:0] write_reg
 );
-
+ 
     always @(CONTROL_WRITE_REG, destReg, regB) begin
         if (CONTROL_WRITE_REG == 1) begin   // use destReg
             write_reg <= destReg;

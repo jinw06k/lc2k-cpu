@@ -8,36 +8,28 @@ module Instr_Memory(
     reg [31:0] Instruction[9:0];
 
     initial begin
-        // Instruction[0] = 32'd08454154;
-        // Instruction[1] = 32'd08519689;
-        // Instruction[2] = 32'd655361;
-        // Instruction[3] = 32'd29360128;
-        // Instruction[4] = 32'd655361;
-        // Instruction[5] = 32'd29360128;
-        // Instruction[6] = 32'd655361;
-        // Instruction[7] = 32'd29360128;
-        // Instruction[8] = 32'd25165824;
 
-        // Instruction[0] = 32'd8454152;
-        // Instruction[1] = 32'd12648455;
-        // Instruction[2] = 32'd21561344;
-        // Instruction[3] = 32'd5308419;
-        // Instruction[4] = 32'd17694716;
-        // Instruction[5] = 32'd8847369;
+        // subone
+        // Instruction[0] = 32'd8454156;
+        // Instruction[1] = 32'd8519691;
+        // Instruction[2] = 32'd8585226;
+        // Instruction[3] = 32'd17432578;
+        // Instruction[4] = 32'd720897;
+        // Instruction[5] = 32'd16842749;
         // Instruction[6] = 32'd29360128;
-        // Instruction[7] = 32'd25165824;
+        // Instruction[7] = 32'd4718596;
+        // Instruction[8] = 32'd12845069;
+        // Instruction[9] = 32'd25165824;
 
 
-        Instruction[0] = 32'd8454154;
-        Instruction[1] = 32'd4849665;
-        Instruction[2] = 32'd12648457;
-        Instruction[3] = 32'd8454155;
-        Instruction[4] = 32'd21561344;
-        Instruction[5] = 32'd5308419;
-        Instruction[6] = 32'd17694715;
-        Instruction[7] = 32'd8847371;
-        Instruction[8] = 32'd29360128;
-        Instruction[9] = 32'd25165824;
+        // jalrTest
+        Instruction[0] = 32'd8519687;
+        Instruction[1] = 32'd22216704;
+        Instruction[2] = 32'd16777219;
+        Instruction[3] = 32'd29360128;
+        Instruction[4] = 32'd29360128;
+        Instruction[5] = 32'd1179649;
+        Instruction[6] = 32'd25165824;
     end
 
     assign instr = Instruction[pcCurrent];

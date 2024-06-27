@@ -8,7 +8,7 @@ module Program_Mux(
 
     output reg [31:0] pcOutput
 ); 
-
+ 
     always @(pcCurrent, CONTROL_BEQ, CONTROL_JALR) begin
         if (CONTROL_BEQ == 1) begin
             pcOutput = pcPlusOne + offsetExtended;

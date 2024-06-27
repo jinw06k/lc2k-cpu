@@ -26,7 +26,7 @@ module CPU();
     wire [31 : 0] instruction;
 
     wire CONTROL_WRITE_REG, CONTROL_WRITE_DATA;
-    wire CONTROL_ENABLE_REG_WRITE, CONTROL_ALUvalB;
+    wire CONTROL_ENABLE_REG_WRITE, CONTROL_ALUvalB, CONTROL_ALU_DONE;
     wire [1:0] CONTROL_OPERATION;
     wire CONTROL_MEM_ACCESS, CONTROL_ENABLE_MEM_WRITE;
     wire CONTROL_BEQ, CONTROL_JALR, CONTROL_HALT;
@@ -65,6 +65,7 @@ module CPU();
         .memResult(memResult),
         .aluResult(aluResult),
         .pcPlusOne(pcPlusOne),
+        .CONTROL_ALU_DONE(CONTROL_ALU_DONE),
         .CONTROL_WRITE_DATA(CONTROL_WRITE_DATA),
         .write_value(write_value)
     );
@@ -85,6 +86,7 @@ module CPU();
     Reg_Memory regM(
         .read_regA(instruction[21:19]),
         .read_regB(instruction[18:16]),
+        .CONTROL_ALU_DONE(CONTROL_ALU_DONE),
         .write_reg(write_reg),
         .write_value(write_value),
         .CONTROL_ENABLE_REG_WRITE(CONTROL_ENABLE_REG_WRITE),

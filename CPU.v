@@ -56,7 +56,6 @@ module CPU();
     );
 
     Instr_Memory instrM(
-        .clk(clk),
         .pcCurrent(pcCurrent),
         .instr(instruction)
     );
@@ -119,7 +118,6 @@ module CPU();
     );
 
     Control_ROM cRom(
-        .clk(clk),
         .pcCurrent(pcCurrent),
         .opcode(instruction[24:22]),
         .instruction(instruction),

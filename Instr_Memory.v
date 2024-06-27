@@ -1,5 +1,4 @@
 module Instr_Memory(
-    input clk,
     input [31:0] pcCurrent,
     
     output [31:0] instr

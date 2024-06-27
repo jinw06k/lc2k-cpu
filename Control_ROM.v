@@ -1,5 +1,4 @@
 module Control_ROM(
-    input clk,
     input [31:0] pcCurrent,
     input [2:0] opcode,
     input [31 : 0] instruction,

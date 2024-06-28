@@ -11,8 +11,7 @@ module Control_ROM(
     output reg CONTROL_MEM_ACCESS,              // 1 = memory accessed
     output reg CONTROL_ENABLE_MEM_WRITE,        // 1 = write mem    0 = read mem
     output reg CONTROL_HALT,
-    output reg CONTROL_JALR,
-    output reg temp
+    output reg CONTROL_JALR
 );
 
     parameter OP_ADD = 3'b000;

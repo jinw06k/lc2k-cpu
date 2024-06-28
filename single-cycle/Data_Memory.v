@@ -17,13 +17,12 @@ module Data_Memory(
         end
 
         // subone
-        // Data[10] = -1;
-        // Data[11] = 2;
-        // Data[12] = 5;
-        // Data[13] = 0;
+        Data[9] = 1;
+        Data[10] = 1;
+        Data[11] = 8;
 
         // jalrTest
-        Data[7] = 5;
+        // Data[7] = 5;
 
     end
 

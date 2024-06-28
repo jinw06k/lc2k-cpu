@@ -5,10 +5,12 @@ loop	beq		1		2		end
 		add		1		3		1
 		beq		0		0		loop
 end		noop
-		nor		1		0		4
-		sw		0		4		res
+		add		0		1		4
+		lw		0		1		seven
+		sw		0		4		seven
+		lw		0		1		seven
 		halt
 neg1	.fill	-1
 two		.fill	2
 five	.fill	5
-res		.fill	0
+seven	.fill	7

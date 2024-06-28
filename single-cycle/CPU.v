@@ -1,25 +1,19 @@
 /*
 
+iverilog -o dsn ALU_ValB_Mux.v ALU.v Clock.V Control_ROM.v CPU.v Data_Memory.v Instr_Memory.v Program_Counter.v Program_Mux.v Reg_Memory.v Sign_Extend.v Write_Data_Mux.v Write_Reg_Mux.v
+
 iverilog -o dsn top.v ALU_ValB_Mux.v ALU.v Clock.V Control_ROM.v CPU.v Data_Memory.v Instr_Memory.v Program_Counter.v Program_Mux.v Reg_Memory.v Sign_Extend.v Write_Data_Mux.v Write_Reg_Mux.v
 
 vvp dsn
 
 */
 
-/*
-
-CPU:
-    reg pcCurrent
-    wire assign pcCurrent
-
-*/
-
 module CPU(
-    input clk,
-    output [31:0] reg1out
+    // input clk,
+    // output [31:0] reg1out
 );
 
-    // wire clk;
+    wire clk;
     wire [31:0] pcInput, pcCurrent, pcPlusOne;
     wire [31:0] offsetExtended;
     wire [31:0] write_value, aluValA, regBvalue, aluValB, aluResult;
@@ -34,9 +28,9 @@ module CPU(
     wire CONTROL_MEM_ACCESS, CONTROL_ENABLE_MEM_WRITE;
     wire CONTROL_BEQ, CONTROL_JALR, CONTROL_HALT;
 
-    // Clock clock(
-    //     .clk(clk)
-    // );
+    Clock clock(
+        .clk(clk)
+    );
 
     Program_Counter PC(
         .clk(clk),
@@ -133,15 +127,40 @@ module CPU(
         .CONTROL_JALR(CONTROL_JALR)
     );
 
-    assign reg1out = reg1val;
+    // assign reg1out = reg1val;
 
-    // initial begin
-    //     $dumpfile("test.vcd");
-    //     $dumpvars(0,CPU);
-    // end
 
-    // initial
-    // $monitor("At time %t, clock = %0d, pcCurrent = %0d, value = %h (%0d), reg1 = %0d",
-    //           $time, clk, pcCurrent, instruction, instruction[24:22], reg1val);
+    // Running simulation via iverilog
+    initial begin
+        $dumpfile("test.vcd");
+        $dumpvars(0,CPU);
+    end
+
+    reg [32:0] curOpcode = "ADD";
+
+    always @(instruction[24:22]) begin
+        case(instruction[24:22]) 
+            3'b000:
+                curOpcode = "ADD";
+            3'b001:
+                curOpcode = "NOR";
+            3'b010:
+                curOpcode = "LW";
+            3'b011:
+                curOpcode = "SW";
+            3'b100:
+                curOpcode = "BEQ";
+            3'b101:
+                curOpcode = "JALR";
+            3'b110:
+                curOpcode = "HALT";
+            3'b111:
+                curOpcode = "NOOP";
+        endcase
+    end
+
+    initial
+        $monitor("At time %t, pcCurrent = %0d, instruction = %s, reg1 value = %0d",
+            $time, pcCurrent, curOpcode, reg1val);
 
 endmodule

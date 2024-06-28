@@ -1,0 +1,5 @@
+At time                    0, pcCurrent = 0, instruction =    LW, reg1 value = 0
+At time                  200, pcCurrent = 1, instruction =  JALR, reg1 value = 0
+At time                  400, pcCurrent = 5, instruction =   ADD, reg1 value = 10
+At time                  600, pcCurrent = 6, instruction =  HALT, reg1 value = 10
+Program_Counter.v:17: $finish called at 800 (1s)

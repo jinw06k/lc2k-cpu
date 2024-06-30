@@ -22,7 +22,7 @@ module ALU(
                     CONTROL_BEQ = 1;
                 end
                 else begin
-                    CONTROL_BEQ =0;
+                    CONTROL_BEQ = 0;
                 end
             end
         endcase

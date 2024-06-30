@@ -71,10 +71,12 @@ module CPU(
         .write_reg(write_reg)
     );
 
-    Sign_Extend sExtend(
-        .offset(instruction[15:0]),
-        .offsetExtended(offsetExtended)
-    );
+    // Sign_Extend sExtend(
+    //     .offset(instruction[15:0]),
+    //     .offsetExtended(offsetExtended)
+    // );
+
+    assign offsetExtended = { {16{instruction[15]}}, instruction[15:0] };
 
     wire [31:0] reg1val;
     Reg_Memory regM(
@@ -109,6 +111,7 @@ module CPU(
         .regBvalue(regBvalue),
         .CONTROL_MEM_ACCESS(CONTROL_MEM_ACCESS),
         .CONTROL_ENABLE_MEM_WRITE(CONTROL_ENABLE_MEM_WRITE),
+        .clk(clk),
         .memResult(memResult)
     );
 

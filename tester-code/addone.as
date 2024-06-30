@@ -1,6 +1,6 @@
-		lw		0		1		five
-		lw		0		2		two
-		lw		0		3		neg1
+		lw		0		1		two
+		lw		0		2		five
+		lw		0		3		add1
 loop	beq		1		2		end
 		add		1		3		1
 		beq		0		0		loop
@@ -10,7 +10,7 @@ end		noop
 		sw		0		4		seven
 		lw		0		1		seven
 		halt
-neg1	.fill	-1
-two		.fill	2
-five	.fill	5
+add1	.fill	1
+two		.fill	5
+five	.fill	2
 seven	.fill	7

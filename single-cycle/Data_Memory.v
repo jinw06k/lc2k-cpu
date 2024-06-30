@@ -3,8 +3,9 @@ module Data_Memory(
     input [31:0] regBvalue,
     input CONTROL_MEM_ACCESS,               // 1 = accessed
     input CONTROL_ENABLE_MEM_WRITE,         // 1 = write, 0 = read
+    input clk,
     
-    output reg [31:0] memResult
+    output [31:0] memResult
 );
 
     reg [63:0] Data[63:0];
@@ -17,9 +18,9 @@ module Data_Memory(
         end
 
         // subone
-        Data[12] = -1;
-        Data[13] = 2;
-        Data[14] = 5;
+        Data[12] = 1;
+        Data[13] = 5;
+        Data[14] = 2;
         Data[15] = 7;
 
         // jalrTest
@@ -28,15 +29,11 @@ module Data_Memory(
     end
 
     always @(aluResult, regBvalue, CONTROL_MEM_ACCESS, CONTROL_ENABLE_MEM_WRITE) begin
-        if (CONTROL_MEM_ACCESS == 1) begin
-            if (CONTROL_ENABLE_MEM_WRITE == 0) begin // read
-                memResult <= Data[aluResult];
-            end
-            
             if (CONTROL_ENABLE_MEM_WRITE == 1) begin // write
                 Data[aluResult] <= regBvalue;
             end
-        end
     end
+
+    assign memResult = Data[aluResult];
 
 endmodule

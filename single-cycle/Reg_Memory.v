@@ -26,11 +26,11 @@ module Reg_Memory(
         Register[write_reg] = write_value;
       end
       else begin
-        aluValA <= Register[read_regA];
-        regBvalue <= Register[read_regB]; 
-      end
-      if (CONTROL_ENABLE_REG_WRITE == 1) begin
-        Register[write_reg] = write_value;
+      aluValA <= Register[read_regA];
+      regBvalue <= Register[read_regB]; 
+        if (CONTROL_ENABLE_REG_WRITE == 1) begin
+          Register[write_reg] = write_value;
+        end
       end
       reg1val <= Register[1];
   end

@@ -1,6 +1,6 @@
 # LC2K CPU in Verilog
 
-This repository contains the source code for an LC2K CPU written in Verilog.
+This repository contains the source code for an LC2K CPU implemented in Verilog.
 
 LC2K design is from EECS 370 Course @ University of Michigan - Ann Arbor. 
 
